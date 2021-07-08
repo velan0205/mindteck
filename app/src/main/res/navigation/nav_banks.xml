@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_banks"
+    app:startDestination="@id/banksFragment">
+
+    <fragment
+        android:id="@+id/banksFragment"
+        android:name="com.example.mindteck.fragments.Banks.BanksFragment"
+        android:label="BanksFragment" />
+</navigation>
