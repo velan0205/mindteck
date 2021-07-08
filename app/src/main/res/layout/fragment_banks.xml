@@ -28,7 +28,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:visibility="invisible"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 >
@@ -36,7 +35,7 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/heroesbanner" />
+                    android:src="@drawable/banks" />
 
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

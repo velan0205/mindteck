@@ -1,4 +1,4 @@
-package com.example.mindteck.fragments.main
+package com.example.mindteck
 
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,8 +20,6 @@ class MainAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     }
 
     override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
-        Log.d(MainHostFragment.TAG, "adapter => createFragment: $position")
         return ref[position]!!
     }
 
