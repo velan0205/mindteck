@@ -1,35 +1,25 @@
 package com.example.mindteck
 
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.InsetDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.widget.doOnTextChanged
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.example.mindteck.databinding.ActivityMainBinding
-import com.example.mindteck.model.ListData
+import com.example.mindteck.model.DataModel
 import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    companion object {
-        const val MAIN_TAG = "main_fragment"
-
-        @BindingAdapter("app:appSetImageIcon")
-        @JvmStatic
-        fun appSetImageIcon(view: ImageView, resource: Int) {
-            view.setImageResource(resource)
-        }
-    }
 
     lateinit var binding: ActivityMainBinding
     lateinit var listAdapter: ListAdapter
@@ -147,14 +137,10 @@ class MainActivity : AppCompatActivity() {
         }
         binding.rvRecyclerView.adapter = listAdapter
         with(binding.rvRecyclerView) {
-            val ATTRS = intArrayOf(android.R.attr.listDivider)
-
-            val a = context.obtainStyledAttributes(ATTRS)
-            //val divider = ColorDrawable(0xE6E6EB)
-            val divider = ColorDrawable(resources.getColor(R.color.divider_color))
-
-            val inset = resources.getDimensionPixelSize(R.dimen.divider_margin)
-            val insetDivider = InsetDrawable(divider, 0, 0, 0, 0)
+            val attrs = intArrayOf(android.R.attr.listDivider)
+            val a = context.obtainStyledAttributes(attrs)
+            val dividerColor = ColorDrawable(0xAAACACAC.toInt())
+            val insetDivider = InsetDrawable(dividerColor, 0, 0, 0, 0)
             a.recycle()
 
             val itemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -164,10 +150,10 @@ class MainActivity : AppCompatActivity() {
             )
             layoutManager = layoutManager1
         }
-        val listDataList: ArrayList<ListData> = ArrayList()
+        val listDataModel: ArrayList<DataModel> = ArrayList()
         for (i in heroesNames.indices) {
-            listDataList.add(
-                ListData(
+            listDataModel.add(
+                DataModel(
                     BitmapFactory.decodeResource(
                         resources,
                         heroesImage[i]
@@ -175,7 +161,7 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
-        listAdapter.setData(listDataList)
+        listAdapter.setData(listDataModel)
 
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
@@ -184,7 +170,7 @@ class MainActivity : AppCompatActivity() {
                 loadData(position)
             }
         })
-        binding.searchBadge.doOnTextChanged { text, start, before, count ->
+        binding.searchBadge.doOnTextChanged { text, _, _, _ ->
             if (text!!.isEmpty()) {
                 loadData(binding.viewPager.currentItem)
                 return@doOnTextChanged
@@ -198,10 +184,10 @@ class MainActivity : AppCompatActivity() {
         when (position) {
             0 -> {
                 //initialize heroes list
-                val listDataList: ArrayList<ListData> = ArrayList()
+                val listDataModel: ArrayList<DataModel> = ArrayList()
                 for (i in heroesNames.indices) {
-                    listDataList.add(
-                        ListData(
+                    listDataModel.add(
+                        DataModel(
                             BitmapFactory.decodeResource(
                                 resources,
                                 heroesImage[i]
@@ -209,38 +195,38 @@ class MainActivity : AppCompatActivity() {
                         )
                     )
                 }
-                listAdapter.setData(listDataList)
+                listAdapter.setData(listDataModel)
 
             }
             1 -> {
                 //initialize banks list
-                val bankList: ArrayList<ListData> = ArrayList()
+                val bankModel: ArrayList<DataModel> = ArrayList()
                 for (i in banksNames.indices) {
-                    bankList.add(
-                        ListData(
+                    bankModel.add(
+                        DataModel(
                             BitmapFactory.decodeResource(
                                 resources,
                                 banksImage[i]
                             ), banksNames[i]
                         )
                     )
-                    listAdapter.setData(bankList)
+                    listAdapter.setData(bankModel)
 
                 }
             }
             else -> {
                 //initialize fruits list
-                val fruitsList: ArrayList<ListData> = ArrayList()
+                val fruitsModel: ArrayList<DataModel> = ArrayList()
                 for (i in fruitsNames.indices) {
-                    fruitsList.add(
-                        ListData(
+                    fruitsModel.add(
+                        DataModel(
                             BitmapFactory.decodeResource(
                                 resources,
                                 fruitsImage[i]
                             ), fruitsNames[i]
                         )
                     )
-                    listAdapter.setData(fruitsList)
+                    listAdapter.setData(fruitsModel)
 
                 }
 

@@ -5,4 +5,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class ListData(val images: Bitmap, val name: String) : Parcelable
+class DataModel(val images: Bitmap, val name: String) : Parcelable

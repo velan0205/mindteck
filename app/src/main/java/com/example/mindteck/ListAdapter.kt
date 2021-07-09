@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mindteck.databinding.GridListRowBinding
-import com.example.mindteck.model.ListData
+import com.example.mindteck.model.DataModel
 import java.util.ArrayList
 
 class ListAdapter :
     RecyclerView.Adapter<ListAdapter.ViewHolder>() {
-    var list: ArrayList<ListData> = ArrayList()
+    var dataModel: ArrayList<DataModel> = ArrayList()
 
     inner class ViewHolder(val binding: GridListRowBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -29,7 +29,7 @@ class ListAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val list = list[position]
+        val list = dataModel[position]
         holder.binding.setVariable(BR.name, list.name)
         holder.binding.ivStatus.setImageBitmap(list.images)
         holder.binding.executePendingBindings()
@@ -37,26 +37,24 @@ class ListAdapter :
 
 
     override fun getItemCount(): Int {
-        return list.size
+        return dataModel.size
     }
 
-    fun setData(list: List<ListData>) {
-        this.list = list as ArrayList<ListData>
+    fun setData(model: List<DataModel>) {
+        this.dataModel = model as ArrayList<DataModel>
         notifyDataSetChanged()
     }
 
     fun search(text: String) {
-        val searchList = list.filter {
-                it.name.contains(text,ignoreCase = true)
-            }
-        list = searchList as ArrayList<ListData>
+        val searchList = dataModel.filter {
+            it.name.contains(text, ignoreCase = true)
+        }
+        dataModel = searchList as ArrayList<DataModel>
         notifyDataSetChanged()
-
     }
 
-
     fun clear() {
-        this.list.clear()
+        this.dataModel.clear()
         notifyDataSetChanged()
     }
 }
