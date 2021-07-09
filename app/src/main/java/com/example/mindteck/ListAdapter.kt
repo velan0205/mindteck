@@ -46,9 +46,8 @@ class ListAdapter :
     }
 
     fun search(text: String) {
-        val searchList =
-            list.filter {
-                it.name.contains(text)
+        val searchList = list.filter {
+                it.name.contains(text,ignoreCase = true)
             }
         list = searchList as ArrayList<ListData>
         notifyDataSetChanged()

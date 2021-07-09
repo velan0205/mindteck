@@ -150,9 +150,11 @@ class MainActivity : AppCompatActivity() {
             val ATTRS = intArrayOf(android.R.attr.listDivider)
 
             val a = context.obtainStyledAttributes(ATTRS)
-            val divider = ColorDrawable(0xE6E6EB)
+            //val divider = ColorDrawable(0xE6E6EB)
+            val divider = ColorDrawable(resources.getColor(R.color.divider_color))
+
             val inset = resources.getDimensionPixelSize(R.dimen.divider_margin)
-            val insetDivider = InsetDrawable(divider, inset, 0, 0, 0)
+            val insetDivider = InsetDrawable(divider, 0, 0, 0, 0)
             a.recycle()
 
             val itemDecoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
@@ -179,63 +181,71 @@ class MainActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 listAdapter.clear()
                 super.onPageSelected(position)
-                when (position) {
-                    0 -> {
-                        //initialize heroes list
-                        val listDataList: ArrayList<ListData> = ArrayList()
-                        for (i in heroesNames.indices) {
-                            listDataList.add(
-                                ListData(
-                                    BitmapFactory.decodeResource(
-                                        resources,
-                                        heroesImage[i]
-                                    ), heroesNames[i]
-                                )
-                            )
-                        }
-                        listAdapter.setData(listDataList)
-
-                    }
-                    1 -> {
-                        //initialize banks list
-                        val bankList: ArrayList<ListData> = ArrayList()
-                        for (i in banksNames.indices) {
-                            bankList.add(
-                                ListData(
-                                    BitmapFactory.decodeResource(
-                                        resources,
-                                        banksImage[i]
-                                    ), banksNames[i]
-                                )
-                            )
-                            listAdapter.setData(bankList)
-
-                        }
-                    }
-                    else -> {
-                        //initialize fruits list
-                        val fruitsList: ArrayList<ListData> = ArrayList()
-                        for (i in fruitsNames.indices) {
-                            fruitsList.add(
-                                ListData(
-                                    BitmapFactory.decodeResource(
-                                        resources,
-                                        fruitsImage[i]
-                                    ), fruitsNames[i]
-                                )
-                            )
-                            listAdapter.setData(fruitsList)
-
-                        }
-
-                    }
-                }
+                loadData(position)
             }
         })
         binding.searchBadge.doOnTextChanged { text, start, before, count ->
+            if (text!!.isEmpty()) {
+                loadData(binding.viewPager.currentItem)
+                return@doOnTextChanged
+            }
             listAdapter.search(text.toString())
         }
         binding.executePendingBindings()
+    }
+
+    fun loadData(position: Int) {
+        when (position) {
+            0 -> {
+                //initialize heroes list
+                val listDataList: ArrayList<ListData> = ArrayList()
+                for (i in heroesNames.indices) {
+                    listDataList.add(
+                        ListData(
+                            BitmapFactory.decodeResource(
+                                resources,
+                                heroesImage[i]
+                            ), heroesNames[i]
+                        )
+                    )
+                }
+                listAdapter.setData(listDataList)
+
+            }
+            1 -> {
+                //initialize banks list
+                val bankList: ArrayList<ListData> = ArrayList()
+                for (i in banksNames.indices) {
+                    bankList.add(
+                        ListData(
+                            BitmapFactory.decodeResource(
+                                resources,
+                                banksImage[i]
+                            ), banksNames[i]
+                        )
+                    )
+                    listAdapter.setData(bankList)
+
+                }
+            }
+            else -> {
+                //initialize fruits list
+                val fruitsList: ArrayList<ListData> = ArrayList()
+                for (i in fruitsNames.indices) {
+                    fruitsList.add(
+                        ListData(
+                            BitmapFactory.decodeResource(
+                                resources,
+                                fruitsImage[i]
+                            ), fruitsNames[i]
+                        )
+                    )
+                    listAdapter.setData(fruitsList)
+
+                }
+
+            }
+        }
     }
 
 }
