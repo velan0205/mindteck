@@ -10,7 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HeroesFragment : Fragment() {
-    lateinit var binding: FragmentHeroesBinding
+    private lateinit var binding: FragmentHeroesBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,

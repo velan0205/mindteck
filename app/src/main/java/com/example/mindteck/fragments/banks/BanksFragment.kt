@@ -1,4 +1,4 @@
-package com.example.mindteck.fragments.Banks
+package com.example.mindteck.fragments.banks
 
 import android.os.Bundle
 import android.view.LayoutInflater

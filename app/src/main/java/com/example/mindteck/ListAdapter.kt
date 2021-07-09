@@ -10,7 +10,7 @@ import java.util.ArrayList
 
 class ListAdapter :
     RecyclerView.Adapter<ListAdapter.ViewHolder>() {
-    var dataModel: ArrayList<DataModel> = ArrayList()
+    private var dataModel: ArrayList<DataModel> = ArrayList()
 
     inner class ViewHolder(val binding: GridListRowBinding) :
         RecyclerView.ViewHolder(binding.root)

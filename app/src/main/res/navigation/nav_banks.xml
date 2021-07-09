@@ -6,6 +6,6 @@
 
     <fragment
         android:id="@+id/banksFragment"
-        android:name="com.example.mindteck.fragments.Banks.BanksFragment"
+        android:name="com.example.mindteck.fragments.banks.BanksFragment"
         android:label="BanksFragment" />
 </navigation>
